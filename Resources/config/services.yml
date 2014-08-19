@@ -1,5 +1,6 @@
 parameters:
 #    remote_dump.example.class: Wusuopu\RemoteDumpBundle\Example
+    wusuopu_remote_dump_url: "http://127.0.0.1:9090/"
 
 services:
 #    remote_dump.example:

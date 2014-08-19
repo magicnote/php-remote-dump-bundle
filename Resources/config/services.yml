@@ -1,0 +1,7 @@
+parameters:
+#    remote_dump.example.class: Wusuopu\RemoteDumpBundle\Example
+
+services:
+#    remote_dump.example:
+#        class: %remote_dump.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

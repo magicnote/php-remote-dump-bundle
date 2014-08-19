@@ -1,0 +1,15 @@
+{
+  "name": "SocketServer",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "author": "Long Changjin",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "3.4.8",
+    "websocket": "*",
+    "ejs": "*"
+  }
+}

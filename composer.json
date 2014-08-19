@@ -1,0 +1,28 @@
+{
+    "name": "wusuopu/remote-dump-bundle",
+    "type": "library",
+    "description": "PHP var_dump debug library with websocket",
+    "keywords": ["websocket", "dump", "debug", "symfony"],
+    "homepage": "https://github.com/wusuopu/php-remote-dump-bundle",
+    "license": "GPL",
+    "authors": [
+        {
+            "name":     "Long Changjin",
+            "email":    "admin@longchangjin.cn",
+            "homepage": "http://www.xefan.com"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle" : "2.*",
+        "symfony/yaml": "2.*",
+        "varspool/websocket-bundle": "dev-master",
+        "wrench/wrench": "dev-master",
+        "php": ">=5.4"
+    },
+    "autoload": {
+        "psr-0": {
+            "Wusuopu\\RemoteDumpBundle": ""
+        }
+    },
+    "target-dir": "Wusuopu/RemoteDumpBundle"
+}

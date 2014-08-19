@@ -57,4 +57,10 @@ use Wusuopu\RemoteDumpBundle\Util\DumpUtil;
 DumpUtil::dump($data, $url = "http://127.0.0.1:9090/");
 ```
 
+or:
+
+```php
+$this->getContainer()->get('wusuopu.remote_dump')->dump($data);
+```
+
 Now in the webbrowser, the data will be displayed.

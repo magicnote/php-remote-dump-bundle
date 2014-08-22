@@ -64,3 +64,17 @@ $this->getContainer()->get('wusuopu.remote_dump')->dump($data);
 ```
 
 Now in the webbrowser, the data will be displayed.
+
+### Config
+It register some servie listeners for kernel event. You can disable/enable these config. The followings are default config.
+
+```yml
+wusuopu_remote_dump_listener_enable: true
+wusuopu_remote_dump_listener.request: true
+wusuopu_remote_dump_listener.controller: true
+wusuopu_remote_dump_listener.view: true
+wusuopu_remote_dump_listener.response: true
+wusuopu_remote_dump_listener.finish_request: true
+wusuopu_remote_dump_listener.terminate: false
+wusuopu_remote_dump_listener.exception: true
+```

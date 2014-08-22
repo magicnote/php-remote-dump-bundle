@@ -4,13 +4,14 @@ namespace Wusuopu\RemoteDumpBundle\Service;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 use Wusuopu\RemoteDumpBundle\Util\DumpUtil;
+use Wusuopu\RemoteDumpBundle\Common\EnvTrait;
 
 /**
  * var_dump variable service.
  */
 class DumpService
 {
-    
+    use EnvTrait;
     /**
      * @var KernelInterface
      *
@@ -19,38 +20,32 @@ class DumpService
     protected $kernel;
 
     /**
+     * @var boolean
+     */
+    protected $isEnv;
+
+    /**
      * @param KernelInterface $kernel
      */
     public function __construct(KernelInterface $kernel)
     {
         $this->kernel = $kernel;
+        $this->isEnv = $this->checkEnv();
     }
 
     /**
-     * @param object $data
+     * dump data.
+     * Variable-length argument lists are supported.
      */
-    public function dump($data)
+    public function dump()
     {
+        if (!$this->isEnv) {
+            return;
+        }
+
         $container = $this->kernel->getContainer();
-        if (!$container->hasParameter("wusuopu_remote_dump_env") || !$container->hasParameter("wusuopu_remote_dump_url")) {
-            return;
-        }
-
-        $environment = $container->getParameter("wusuopu_remote_dump_env");
         $url = $container->getParameter("wusuopu_remote_dump_url");
-
-        if (!$environment) {
-            return;
-        }
-
-        $currentEnv = $container->getParameter("kernel.environment");
-
-        if (is_array($environment) && !in_array($currentEnv, $environment)) {
-            return;
-        } else if ($currentEnv === $environment) {
-            return;
-        }
-
+        $timeout = $container->getParameter("wusuopu_remote_dump_timeout");
 
         try {
             $request = $container->get('request');
@@ -58,17 +53,25 @@ class DumpService
             $request = null;
         }
 
+        $numargs = func_num_args();
+        if ($numargs == 0) {
+            return;
+        }
+
+        $arglist = func_get_args();
         ob_start();
 
         if ($request) {
             echo $request->getClientIp() . " ". $request->getRealMethod() . " " . $request->getHttpHost() . " " . $request->getRequestUri() . ($request->isXmlHttpRequest() ? "   (Ajax) </ br>" : " </ br>");
         }
 
-        var_dump($data);
+        for ($i = 0; $i < $numargs; $i++) {
+            var_dump($arglist[$i]);
+        }
 
         $str = ob_get_contents();
         ob_end_clean();
 
-        DumpUtil::postData($str, $url);
+        DumpUtil::postData($str, $url, $timeout);
     }
 }

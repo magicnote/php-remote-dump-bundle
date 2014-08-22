@@ -2,6 +2,16 @@ parameters:
 #    remote_dump.example.class: Wusuopu\RemoteDumpBundle\Example
     wusuopu_remote_dump_url: "http://127.0.0.1:9090/"
     wusuopu_remote_dump_env: [ "dev", "test" ]
+    wusuopu_remote_dump_timeout: 3
+    wusuopu_remote_dump_listener_ignore_pattern: /(^\/(_(profiler|wdt|fragment)))/
+    wusuopu_remote_dump_listener_enable: true
+    wusuopu_remote_dump_listener.request: true
+    wusuopu_remote_dump_listener.controller: true
+    wusuopu_remote_dump_listener.view: true
+    wusuopu_remote_dump_listener.response: true
+    wusuopu_remote_dump_listener.finish_request: true
+    wusuopu_remote_dump_listener.terminate: false
+    wusuopu_remote_dump_listener.exception: true
 
 services:
 #    remote_dump.example:
@@ -10,3 +20,39 @@ services:
     wusuopu.remote_dump:
         class: "Wusuopu\RemoteDumpBundle\Service\DumpService"
         arguments: [ @kernel ]
+
+    # kernel event debug listener
+    wusuopu.remote_dump.request_listener:
+        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
+        tags: [{name: kernel.event_listener, event: kernel.request, method: onKernelRequest}]
+        arguments: [@kernel]
+
+    wusuopu.remote_dump.controller_listener:
+        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
+        tags: [{name: kernel.event_listener, event: kernel.controller, method: onKernelController}]
+        arguments: [@kernel]
+
+    wusuopu.remote_dump.view_listener:
+        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
+        tags: [{name: kernel.event_listener, event: kernel.view, method: onKernelView}]
+        arguments: [@kernel]
+
+    wusuopu.remote_dump.response_listener:
+        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
+        tags: [{name: kernel.event_listener, event: kernel.response, method: onKernelRespone}]
+        arguments: [@kernel]
+
+    wusuopu.remote_dump.finish_request_listener:
+        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
+        tags: [{name: kernel.event_listener, event: kernel.finish_request, method: onKernelFinishRequest}]
+        arguments: [@kernel]
+
+    wusuopu.remote_dump.terminate_listener:
+        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
+        tags: [{name: kernel.event_listener, event: kernel.terminate, method: onKernelTerminate}]
+        arguments: [@kernel]
+
+    wusuopu.remote_dump.exception_listener:
+        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
+        tags: [{name: kernel.event_listener, event: kernel.exception, method: onKernelException}]
+        arguments: [@kernel]

@@ -3,7 +3,7 @@
 A tool used for remote debug php code.
 
 ## Installation
-RemoteDumpBundle depends on nodejs.
+RemoteDumpBundle requires nodejs to dump debug messages.
 
 ### Composer
 Using Composer for installation:
@@ -32,7 +32,7 @@ public function registerBundles()
 ```
 
 ## Nodejs
-Install nodejs packages.
+Install nodejs and install these packages.
 
 ```
 $ cd SocketServer
@@ -66,7 +66,7 @@ $this->getContainer()->get('wusuopu.remote_dump')->dump($data);
 Now in the webbrowser, the data will be displayed.
 
 ### Config
-It register some servie listeners for kernel event. You can disable/enable these config. The followings are default config.
+It register some service listeners for kernel event. You can disable/enable these module using these config options. Here are default config options.
 
 ```yml
 wusuopu_remote_dump_listener_enable: true

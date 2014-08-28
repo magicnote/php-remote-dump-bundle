@@ -22,37 +22,14 @@ services:
         arguments: [ @kernel ]
 
     # kernel event debug listener
-    wusuopu.remote_dump.request_listener:
+    wusuopu.remote_dump.kernel_event_listener:
         class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
-        tags: [{name: kernel.event_listener, event: kernel.request, method: onKernelRequest}]
-        arguments: [@kernel]
-
-    wusuopu.remote_dump.controller_listener:
-        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
-        tags: [{name: kernel.event_listener, event: kernel.controller, method: onKernelController}]
-        arguments: [@kernel]
-
-    wusuopu.remote_dump.view_listener:
-        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
-        tags: [{name: kernel.event_listener, event: kernel.view, method: onKernelView}]
-        arguments: [@kernel]
-
-    wusuopu.remote_dump.response_listener:
-        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
-        tags: [{name: kernel.event_listener, event: kernel.response, method: onKernelRespone}]
-        arguments: [@kernel]
-
-    wusuopu.remote_dump.finish_request_listener:
-        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
-        tags: [{name: kernel.event_listener, event: kernel.finish_request, method: onKernelFinishRequest}]
-        arguments: [@kernel]
-
-    wusuopu.remote_dump.terminate_listener:
-        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
-        tags: [{name: kernel.event_listener, event: kernel.terminate, method: onKernelTerminate}]
-        arguments: [@kernel]
-
-    wusuopu.remote_dump.exception_listener:
-        class: Wusuopu\RemoteDumpBundle\EventListener\DebugListener
-        tags: [{name: kernel.event_listener, event: kernel.exception, method: onKernelException}]
+        tags:
+            - {name: kernel.event_listener, event: kernel.request, method: onKernelRequest}
+            - {name: kernel.event_listener, event: kernel.controller, method: onKernelController}
+            - {name: kernel.event_listener, event: kernel.view, method: onKernelView}
+            - {name: kernel.event_listener, event: kernel.response, method: onKernelRespone}
+            - {name: kernel.event_listener, event: kernel.finish_request, method: onKernelFinishRequest}
+            - {name: kernel.event_listener, event: kernel.terminate, method: onKernelTerminate}
+            - {name: kernel.event_listener, event: kernel.exception, method: onKernelException}
         arguments: [@kernel]
